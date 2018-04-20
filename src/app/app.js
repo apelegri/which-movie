@@ -1,5 +1,7 @@
 import Vue from 'vue';
+import VueRouter from 'vue-router';
 
+Vue.use(VueRouter);
 const DunkirkBlurb = { name: 'dunkirk-blurb', template: `<div>
     <h2>Dunkirk</h2>
     <p class="movies__description">Miraculous evacuation of Allied soldiers from
@@ -34,8 +36,20 @@ const routes = [ {
   },
   {path: '/dunkirk', component: DunkirkBlurb},
   {path: '/interstellar', component: InterstellarBlurb},
-  {path: '/the-dark-knight-rises', component: TheDarkKnightRisesBlurb}
+  {path: '/the-dark-knight-rises', component: TheDarkKnightRisesBlurb},
+  {
+    path: '*',
+    component: {
+      name: 'not-found-blurb',
+      template: `<h2>Not Found :(. Pick a movie from the list!</h2>`
+    }
+  }
 ];
+
+export const router = new VueRouter({
+  mode: 'history',
+  routes
+});
 
 
 const App = {
@@ -49,12 +63,7 @@ const App = {
 
       <router-view></router-view>
     </div>
-  </div>`,
-
-  components: {
-    'router-view': View,
-    'router-link': Link
-  }
+  </div>`
 };
 
 export default App;
